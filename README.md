@@ -10,6 +10,8 @@ Built using **React**, **Tailwind CSS**, and **Firebase**, this project allows u
 ### Home Page
 <img width="1920" height="950" alt="image" src="https://github.com/user-attachments/assets/6fb1db3b-4633-47e8-8392-6889917d97f3" />
 
+### Profile Page
+<img width="1920" height="952" alt="image" src="https://github.com/user-attachments/assets/f1563108-6ae1-4390-b485-c1c0e4d64647" />
 
 ## 📂 Features
 
