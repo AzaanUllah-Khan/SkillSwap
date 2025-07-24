@@ -16,6 +16,8 @@ Built using **React**, **Tailwind CSS**, and **Firebase**, this project allows u
 ### Add Skills Page
 <img width="1920" height="952" alt="image" src="https://github.com/user-attachments/assets/9bf1556e-79a9-4e24-a87d-47dcf417af66" />
 
+### Course Details Page
+<img width="1920" height="489" alt="image" src="https://github.com/user-attachments/assets/76e0a1fa-4710-4f1f-9a05-3f85337f972f" />
 
 ## 📂 Features
 
