@@ -1,4 +1,4 @@
-# SkillSwap – Teach What You Know, Learn What You Don’t
+## SkillSwap – Teach What You Know, Learn What You Want
 
 SkillSwap is a simple web app that connects people who want to **teach** a skill with those who want to **learn** one.
 
