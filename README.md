@@ -42,18 +42,3 @@ Built using **React**, **Tailwind CSS**, and **Firebase**, this project allows u
 | Firebase    | Auth + Firestore DB  |
 | React Router| Page navigation      |
 | Heroicons   | Icons (UI)           |
-
----
-
-## 🛠️ Installation & Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/skillswap.git
-cd skillswap
-
-# Install dependencies
-npm install
-
-# Start the app
-npm run dev
