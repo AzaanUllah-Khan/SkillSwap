@@ -4,19 +4,10 @@ SkillSwap is a simple web app that connects people who want to **teach** a skill
 
 Built using **React**, **Tailwind CSS**, and **Firebase**, this project allows users to post skills they can teach or learn, view others’ skill listings, and grow through peer-to-peer knowledge sharing.
 
----
-
-## 🚀 Live Demo
-
-(If hosted, add your live link here)
-
----
 
 ## 📸 Preview
 
 ![SkillSwap Screenshot](./preview.png)
-
----
 
 ## 📂 Features
 
@@ -30,8 +21,6 @@ Built using **React**, **Tailwind CSS**, and **Firebase**, this project allows u
 - ✅ Show Author Info  
 - ✅ Responsive UI (Tailwind CSS)  
 - 🔍 Filter & Search (Coming Soon...)
-
----
 
 ## 📦 Tech Stack
 
