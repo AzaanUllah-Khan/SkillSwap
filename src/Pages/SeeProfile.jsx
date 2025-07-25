@@ -44,11 +44,12 @@ const SeeProfile = () => {
                 getData();
             } else {
                 setOpenP(true);
+                setDataLoading(false);
             }
         });
     };
 
-    
+
     useEffect(() => {
         getUid()
     }, [])
@@ -60,7 +61,7 @@ const SeeProfile = () => {
             </div>
         );
     }
-    
+
     const delThis = async (id) => {
         await deleteDoc(doc(db, "Skills", id));
         getData()
