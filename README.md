@@ -33,7 +33,7 @@ Built using **React**, **Tailwind CSS**, and **Firebase**, this project allows u
 - ✅ Responsive UI (Tailwind CSS)  
 - 🔍 Filter & Search (Coming Soon...)
 
-## 📦 Tech Stack
+## 🔧 Tech Stack
 
 | Tool        | Usage                |
 |-------------|----------------------|
