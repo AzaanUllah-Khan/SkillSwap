@@ -15,20 +15,27 @@ const Course = () => {
   const [tags, setTags] = useState([])
   const [uid, setUid] = useState("")
   const [open, setOpen] = useState(false)
+  const [dataLoading, setDataLoading] = useState(true);
+
   const nav = useNavigate()
   const getData = async () => {
+    try {
+      const docRef = doc(db, "Skills", id);
+      const docSnap = await getDoc(docRef);
 
-    const docRef = doc(db, "Skills", id);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      setAuthor(docSnap.data().author)
-      setStatus(docSnap.data().status)
-      setSkill(docSnap.data().skill)
-      setDescription(docSnap.data().description)
-      setTags(docSnap.data().tags)
-      setUid(docSnap.data().uid)
-    } else {
+      if (docSnap.exists()) {
+        setAuthor(docSnap.data().author)
+        setStatus(docSnap.data().status)
+        setSkill(docSnap.data().skill)
+        setDescription(docSnap.data().description)
+        setTags(docSnap.data().tags)
+        setUid(docSnap.data().uid)
+      } else {
+      }
+    } catch (error) {
+      console.error("Failed to fetch skills:", error);
+    } finally {
+      setDataLoading(false);
     }
   }
   const checkLogin = () => {
@@ -37,12 +44,21 @@ const Course = () => {
         getData()
       } else {
         setOpen(true)
+        setDataLoading(false);
       }
     });
   }
   useEffect(() => {
     checkLogin()
   }, [])
+  
+  if (dataLoading) {
+    return (
+      <div className="absolute inset-0 flex items-center justify-center z-50">
+        <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex flex-wrap justify-center items-start gap-5 p-6">
