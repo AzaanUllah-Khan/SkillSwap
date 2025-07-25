@@ -20,6 +20,7 @@ const SeeProfile = () => {
     const [editDesc, setEditDesc] = useState("")
     const [editStatus, setEditStatus] = useState("")
     const [dataLoading, setDataLoading] = useState(true);
+    const [user, setUser] = useState("")
     const getData = async () => {
         try {
             const q = query(collection(db, "Skills"), where("uid", "==", id));
@@ -36,7 +37,6 @@ const SeeProfile = () => {
         }
     };
 
-
     const getUid = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -49,10 +49,27 @@ const SeeProfile = () => {
         });
     };
 
+    const getUserName = async () => {
+        try {
+            const docRef = doc(db, "Users", id);
+            const docSnap = await getDoc(docRef);
+            setUser(docSnap.data().name)
+        } catch { }
+    }
 
     useEffect(() => {
         getUid()
     }, [])
+
+    useEffect(() => {
+        if(id){
+            getUserName()
+        }
+    }, [id])
+
+    useEffect(() => {
+        document.title = `Skills - ${user}`
+    }, [user])
 
     if (dataLoading) {
         return (

@@ -13,7 +13,7 @@ export default function Signup() {
   const [name, setName] = useState("");
 
 useEffect(() => {
-    document.title = "Login | SkillSwap.";
+    document.title = "Signup | SkillSwap.";
   }, [])
 
   const months = [

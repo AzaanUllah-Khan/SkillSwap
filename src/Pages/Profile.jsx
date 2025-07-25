@@ -51,8 +51,11 @@ const Profile = () => {
 
     useEffect(() => {
         Info()
-        document.title = "Profile | SkillSwap";
     }, [])
+    
+    useEffect(()=>{
+        document.title = `Profile | ${firstName}`;
+    },[firstName])
 
     const Avatar = () => {
         if (userName.length > 1) {

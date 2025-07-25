@@ -51,7 +51,13 @@ const Course = () => {
   useEffect(() => {
     checkLogin()
   }, [])
-  
+
+  useEffect(() => {
+    if (skill && author) {
+      document.title = `${skill} - ${author}`;
+    }
+  }, [skill, author])
+
   if (dataLoading) {
     return (
       <div className="absolute inset-0 flex items-center justify-center z-50">

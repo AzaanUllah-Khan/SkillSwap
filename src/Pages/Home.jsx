@@ -21,6 +21,7 @@ const Home = () => {
 
     useEffect(() => {
         getData();
+        document.title = "SkillSwap | Teach what you know. Learn what you want.";
     }, []);
 
     if (loading) {
