@@ -1,4 +1,4 @@
-import { collection, query, getDocs, where } from "firebase/firestore";
+import { collection, query, getDocs, where, orderBy, startAt, endAt } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../assets/Firebase/Firebase";
 import { Link } from "react-router-dom";
@@ -95,19 +95,23 @@ const Home = () => {
             setLoading(false);
         }
     }
-    
-    const search = (value)=>{
-        if(value == ""){
+
+    const search = (value) => {
+        if (value == "") {
             getData()
-        }else{
+        } else {
             filtersName(value)
         }
     }
     const filtersAuthorName = async (authorN) => {
         try {
             setLoading(true)
-            const q = query(collection(db, "Skills"), where("author_lower", "==", authorN.toLowerCase()));
-            const querySnapshot = await getDocs(q);
+            const q = query(
+                collection(db, "Skills"),
+                orderBy("author_lower"),
+                startAt(authorN.toLowerCase()),
+                endAt(authorN.toLowerCase() + '\uf8ff')
+            ); const querySnapshot = await getDocs(q);
             const dataArr = [];
             querySnapshot.forEach((doc) => {
                 dataArr.push({ id: doc.id, ...doc.data() });
@@ -119,10 +123,10 @@ const Home = () => {
             setLoading(false);
         }
     }
-    const search2 = (value)=>{
-        if(value == ""){
+    const search2 = (value) => {
+        if (value == "") {
             getData()
-        }else{
+        } else {
             filtersAuthorName(value)
         }
     }
@@ -136,8 +140,8 @@ const Home = () => {
     return (
         <div className="p-6 flex flex-col gap-6">
             {loggedin ? <div className="flex flex-col items-end gap-2 justify-start w-full sm:flex-row sm:items-start sm:gap-4">
-                <input type="text" value={inpVal2} onChange={(e)=>{setInpVal2(e.target.value)}} onKeyDown={(event)=>{event.key == "Enter"?search2(event.target.value):""}} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Author Name" />
-                <input type="text" value={inpVal} onChange={(e)=>{setInpVal(e.target.value)}} onKeyDown={(event)=>{event.key == "Enter"?search(event.target.value):""}} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Skill Name" />
+                <input type="text" value={inpVal2} onChange={(e) => { setInpVal2(e.target.value) }} onKeyDown={(event) => { event.key == "Enter" ? search2(event.target.value) : "" }} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Author Name" />
+                <input type="text" value={inpVal} onChange={(e) => { setInpVal(e.target.value) }} onKeyDown={(event) => { event.key == "Enter" ? search(event.target.value) : "" }} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Skill Name" />
                 <Listbox value={selected} onChange={setSelected}>
                     <div className="relative w-full sm:w-50">
                         <ListboxButton className="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 border-1 border-gray-300 focus:outline-none sm:text-sm/6">
