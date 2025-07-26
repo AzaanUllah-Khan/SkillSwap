@@ -23,6 +23,7 @@ const Home = () => {
     ]
     const [selected, setSelected] = useState(type[0])
     const [data, setData] = useState([]);
+    const [inpVal, setInpVal] = useState("");
     const [loading, setLoading] = useState(true);
     const [loggedin, setLoggedIn] = useState(false)
     const toShowFilter = () => {
@@ -111,7 +112,7 @@ const Home = () => {
     return (
         <div className="p-6 flex flex-col gap-6">
             {loggedin ? <div className="flex flex-col items-end gap-2 justify-start w-full sm:flex-row sm:items-start sm:gap-4">
-                <input type="text" onKeyDown={(event)=>{event.key == "Enter"?search(event.target.value):""}} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Skill Name" />
+                <input type="text" value={inpVal} onChange={(e)=>{setInpVal(e.target.value)}} onKeyDown={(event)=>{event.key == "Enter"?search(event.target.value):""}} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Skill Name" />
                 <Listbox value={selected} onChange={setSelected}>
                     <div className="relative w-full sm:w-50">
                         <ListboxButton className="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 border-1 border-gray-300 focus:outline-none sm:text-sm/6">
