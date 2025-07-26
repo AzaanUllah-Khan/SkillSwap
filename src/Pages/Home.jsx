@@ -24,6 +24,7 @@ const Home = () => {
     const [selected, setSelected] = useState(type[0])
     const [data, setData] = useState([]);
     const [inpVal, setInpVal] = useState("");
+    const [inpVal2, setInpVal2] = useState("");
     const [loading, setLoading] = useState(true);
     const [loggedin, setLoggedIn] = useState(false)
     const toShowFilter = () => {
@@ -94,12 +95,35 @@ const Home = () => {
             setLoading(false);
         }
     }
-
+    
     const search = (value)=>{
         if(value == ""){
             getData()
         }else{
             filtersName(value)
+        }
+    }
+    const filtersAuthorName = async (authorN) => {
+        try {
+            setLoading(true)
+            const q = query(collection(db, "Skills"), where("author_lower", "==", authorN.toLowerCase()));
+            const querySnapshot = await getDocs(q);
+            const dataArr = [];
+            querySnapshot.forEach((doc) => {
+                dataArr.push({ id: doc.id, ...doc.data() });
+            });
+            setData(dataArr);
+        } catch (error) {
+            console.error("Failed to fetch skills:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
+    const search2 = (value)=>{
+        if(value == ""){
+            getData()
+        }else{
+            filtersAuthorName(value)
         }
     }
     if (loading) {
@@ -112,6 +136,7 @@ const Home = () => {
     return (
         <div className="p-6 flex flex-col gap-6">
             {loggedin ? <div className="flex flex-col items-end gap-2 justify-start w-full sm:flex-row sm:items-start sm:gap-4">
+                <input type="text" value={inpVal2} onChange={(e)=>{setInpVal2(e.target.value)}} onKeyDown={(event)=>{event.key == "Enter"?search2(event.target.value):""}} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Author Name" />
                 <input type="text" value={inpVal} onChange={(e)=>{setInpVal(e.target.value)}} onKeyDown={(event)=>{event.key == "Enter"?search(event.target.value):""}} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Skill Name" />
                 <Listbox value={selected} onChange={setSelected}>
                     <div className="relative w-full sm:w-50">
