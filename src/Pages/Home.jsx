@@ -1,4 +1,4 @@
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../assets/Firebase/Firebase";
 import { Link } from "react-router-dom";
@@ -52,11 +52,34 @@ const Home = () => {
         document.title = "SkillSwap | Teach what you know. Learn what you want.";
     }, []);
 
-    
+    const filtersType = async (type) => {
+        try {
+            setLoading(true)
+            const q = query(collection(db, "Skills"), where("status", "==", type));
+            const querySnapshot = await getDocs(q);
+            const dataArr = [];
+            querySnapshot.forEach((doc) => {
+                dataArr.push({ id: doc.id, ...doc.data() });
+            });
+            setData(dataArr);
+        } catch (error) {
+            console.error("Failed to fetch skills:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const changeFilterType = (type) => {
+        if (type == "All") {
+            getData()
+        } else {
+            filtersType(type)
+        }
+    }
     if (loading) {
-            return (
-                    <div className="absolute inset-0 flex items-center justify-center z-50">
-                        <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+        return (
+            <div className="absolute inset-0 flex items-center justify-center z-50">
+                <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
             </div>
         );
     }
@@ -82,6 +105,7 @@ const Home = () => {
                         >
                             {type.map((elem) => (
                                 <ListboxOption
+                                    onClick={() => changeFilterType(elem.name)}
                                     key={elem.id}
                                     value={elem}
                                     className="group relative cursor-pointer py-2 text-gray-900 select-none data-focus:bg-indigo-600 data-focus:text-white data-focus:outline-hidden"
