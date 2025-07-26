@@ -62,10 +62,10 @@ const Home = () => {
     const [selected, setSelected] = useState(type[0])
     return (
         <div className="p-6 flex flex-col gap-6">
-            <div className="flex items-center gap-6 justify-start w-full">
-                <input type="text" className="border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Skill Name" />
+            {loggedin ? <div className="flex flex-col items-end gap-2 justify-start w-full sm:flex-row sm:items-start sm:gap-4">
+                <input type="text" className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Skill Name" />
                 <Listbox value={selected} onChange={setSelected}>
-                    <div className="relative">
+                    <div className="relative w-full sm:w-50">
                         <ListboxButton className="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 border-1 border-gray-300 focus:outline-none sm:text-sm/6">
                             <span className="col-start-1 row-start-1 flex items-center gap-3 pr-6">
                                 <span className="block truncate">{selected.name}</span>
@@ -94,10 +94,10 @@ const Home = () => {
                         </ListboxOptions>
                     </div>
                 </Listbox>
-            </div>
+            </div> : ""}
             <div className="flex flex-wrap justify-start items-start gap-5">
                 {data.map((elem, idx) => (
-                    <div key={idx} className="min-w-60 border-1 border-gray-200 px-4 py-3 rounded-lg">
+                    <div key={idx} className="w-full border-1 border-gray-200 px-4 py-3 rounded-lg sm:w-auto sm:min-w-60">
                         <Link to={`/seeprofile/${elem.uid}`}>
                             <h1 className="text-indigo-600 text-sm mb-2">{elem.author}</h1>
                         </Link>
