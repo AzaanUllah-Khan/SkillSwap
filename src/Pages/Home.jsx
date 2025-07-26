@@ -7,6 +7,21 @@ import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headless
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
 
 const Home = () => {
+    const type = [
+        {
+            id: 1,
+            name: 'All'
+        },
+        {
+            id: 2,
+            name: 'Teach'
+        },
+        {
+            id: 3,
+            name: 'Learn'
+        }
+    ]
+    const [selected, setSelected] = useState(type[0])
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [loggedin, setLoggedIn] = useState(false)
@@ -37,6 +52,7 @@ const Home = () => {
         document.title = "SkillSwap | Teach what you know. Learn what you want.";
     }, []);
 
+    
     if (loading) {
             return (
                     <div className="absolute inset-0 flex items-center justify-center z-50">
@@ -44,22 +60,6 @@ const Home = () => {
             </div>
         );
     }
-
-    const type = [
-        {
-            id: 1,
-            name: 'All'
-        },
-        {
-            id: 2,
-            name: 'Teach'
-        },
-        {
-            id: 3,
-            name: 'Learn'
-        }
-    ]
-    const [selected, setSelected] = useState(type[0])
     return (
         <div className="p-6 flex flex-col gap-6">
             {loggedin ? <div className="flex flex-col items-end gap-2 justify-start w-full sm:flex-row sm:items-start sm:gap-4">
