@@ -73,6 +73,7 @@ const Home = () => {
 
     useEffect(() => {
         toShowFilter();
+        getFilteredData();
         document.title = "SkillSwap | Teach what you know. Learn what you want.";
     }, []);
 
