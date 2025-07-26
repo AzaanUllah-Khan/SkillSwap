@@ -8,128 +8,80 @@ import { ChevronDownIcon } from '@heroicons/react/16/solid'
 
 const Home = () => {
     const type = [
-        {
-            id: 1,
-            name: 'All'
-        },
-        {
-            id: 2,
-            name: 'Teach'
-        },
-        {
-            id: 3,
-            name: 'Learn'
-        }
-    ]
-    const [selected, setSelected] = useState(type[0])
+        { id: 1, name: 'All' },
+        { id: 2, name: 'Teach' },
+        { id: 3, name: 'Learn' }
+    ];
+
+    const [selected, setSelected] = useState(type[0]);
     const [data, setData] = useState([]);
-    const [inpVal, setInpVal] = useState("");
-    const [inpVal2, setInpVal2] = useState("");
+    const [inpVal, setInpVal] = useState(""); // Skill Name
+    const [inpVal2, setInpVal2] = useState(""); // Author Name
     const [loading, setLoading] = useState(true);
-    const [loggedin, setLoggedIn] = useState(false)
+    const [loggedin, setLoggedIn] = useState(false);
+
     const toShowFilter = () => {
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setLoggedIn(true)
-            } else {
-                setLoggedIn(false)
-            }
+            setLoggedIn(!!user);
         });
-    }
-    const getData = async () => {
+    };
+
+    const getFilteredData = async () => {
         setLoading(true);
-        const q = query(collection(db, "Skills"));
-        const querySnapshot = await getDocs(q);
-        const dataArr = [];
-        querySnapshot.forEach((doc) => {
-            dataArr.push({ id: doc.id, ...doc.data() });
-        });
-        setData(dataArr);
-        setLoading(false);
+        try {
+            const filters = [];
+            const skillsRef = collection(db, "Skills");
+
+            // Apply status filter if not "All"
+            if (selected.name !== "All") {
+                filters.push(where("status", "==", selected.name));
+            }
+
+            // Apply skill name filter
+            if (inpVal.trim() !== "") {
+                filters.push(where("skill_lower", "==", inpVal.toLowerCase()));
+            }
+
+            let q;
+
+            // Apply author name with range search
+            if (inpVal2.trim() !== "") {
+                q = query(
+                    skillsRef,
+                    ...filters,
+                    orderBy("author_lower"),
+                    startAt(inpVal2.toLowerCase()),
+                    endAt(inpVal2.toLowerCase() + '\uf8ff')
+                );
+            } else {
+                q = query(skillsRef, ...filters);
+            }
+
+            const querySnapshot = await getDocs(q);
+            const dataArr = [];
+            querySnapshot.forEach((doc) => {
+                dataArr.push({ id: doc.id, ...doc.data() });
+            });
+
+            setData(dataArr);
+        } catch (error) {
+            console.error("Filtering failed:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
-        toShowFilter()
-        getData();
+        toShowFilter();
         document.title = "SkillSwap | Teach what you know. Learn what you want.";
     }, []);
 
-    const filtersType = async (type) => {
-        try {
-            setLoading(true)
-            const q = query(collection(db, "Skills"), where("status", "==", type));
-            const querySnapshot = await getDocs(q);
-            const dataArr = [];
-            querySnapshot.forEach((doc) => {
-                dataArr.push({ id: doc.id, ...doc.data() });
-            });
-            setData(dataArr);
-        } catch (error) {
-            console.error("Failed to fetch skills:", error);
-        } finally {
-            setLoading(false);
+    useEffect(() => {
+        if (!loading) {
+            getFilteredData();
         }
-    }
+    }, [selected]);
 
-    const changeFilterType = (type) => {
-        if (type == "All") {
-            getData()
-        } else {
-            filtersType(type)
-        }
-    }
-
-    const filtersName = async (skill) => {
-        try {
-            setLoading(true)
-            const q = query(collection(db, "Skills"), where("skill_lower", "==", skill.toLowerCase()));
-            const querySnapshot = await getDocs(q);
-            const dataArr = [];
-            querySnapshot.forEach((doc) => {
-                dataArr.push({ id: doc.id, ...doc.data() });
-            });
-            setData(dataArr);
-        } catch (error) {
-            console.error("Failed to fetch skills:", error);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    const search = (value) => {
-        if (value == "") {
-            getData()
-        } else {
-            filtersName(value)
-        }
-    }
-    const filtersAuthorName = async (authorN) => {
-        try {
-            setLoading(true)
-            const q = query(
-                collection(db, "Skills"),
-                orderBy("author_lower"),
-                startAt(authorN.toLowerCase()),
-                endAt(authorN.toLowerCase() + '\uf8ff')
-            ); const querySnapshot = await getDocs(q);
-            const dataArr = [];
-            querySnapshot.forEach((doc) => {
-                dataArr.push({ id: doc.id, ...doc.data() });
-            });
-            setData(dataArr);
-        } catch (error) {
-            console.error("Failed to fetch skills:", error);
-        } finally {
-            setLoading(false);
-        }
-    }
-    const search2 = (value) => {
-        if (value == "") {
-            getData()
-        } else {
-            filtersAuthorName(value)
-        }
-    }
     if (loading) {
         return (
             <div className="absolute inset-0 flex items-center justify-center z-50">
@@ -137,43 +89,60 @@ const Home = () => {
             </div>
         );
     }
+
     return (
         <div className="p-6 flex flex-col gap-6">
-            {loggedin ? <div className="flex flex-col items-end gap-2 justify-start w-full sm:flex-row sm:items-start sm:gap-4">
-                <input type="text" value={inpVal2} onChange={(e) => { setInpVal2(e.target.value) }} onKeyDown={(event) => { event.key == "Enter" ? search2(event.target.value) : "" }} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Author Name" />
-                <input type="text" value={inpVal} onChange={(e) => { setInpVal(e.target.value) }} onKeyDown={(event) => { event.key == "Enter" ? search(event.target.value) : "" }} className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md" placeholder="Search by Skill Name" />
-                <Listbox value={selected} onChange={setSelected}>
-                    <div className="relative w-full sm:w-50">
-                        <ListboxButton className="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 border-1 border-gray-300 focus:outline-none sm:text-sm/6">
-                            <span className="col-start-1 row-start-1 flex items-center gap-3 pr-6">
-                                <span className="block truncate">{selected.name}</span>
-                            </span>
-                            <ChevronDownIcon
-                                aria-hidden="true"
-                                className="col-start-1 row-start-1 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                            />
-                        </ListboxButton>
-
-                        <ListboxOptions
-                            transition
-                            className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm"
-                        >
-                            {type.map((elem) => (
-                                <ListboxOption
-                                    onClick={() => changeFilterType(elem.name)}
-                                    key={elem.id}
-                                    value={elem}
-                                    className="group relative cursor-pointer py-2 text-gray-900 select-none data-focus:bg-indigo-600 data-focus:text-white data-focus:outline-hidden"
-                                >
-                                    <div className="flex items-center">
-                                        <span className="pl-2 block truncate font-normal group-data-selected:font-semibold">{elem.name}</span>
-                                    </div>
-                                </ListboxOption>
-                            ))}
-                        </ListboxOptions>
-                    </div>
-                </Listbox>
-            </div> : ""}
+            {loggedin && (
+                <div className="flex flex-col items-end gap-2 justify-start w-full sm:flex-row sm:items-start sm:gap-4">
+                    <input
+                        type="text"
+                        value={inpVal2}
+                        onChange={(e) => setInpVal2(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && getFilteredData()}
+                        className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md"
+                        placeholder="Search by Author Name"
+                    />
+                    <input
+                        type="text"
+                        value={inpVal}
+                        onChange={(e) => setInpVal(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && getFilteredData()}
+                        className="w-full border-1 border-gray-300 outline-none py-1.5 px-2 text-left text-gray-900 rounded-md"
+                        placeholder="Search by Skill Name"
+                    />
+                    <Listbox value={selected} onChange={setSelected}>
+                        <div className="relative w-full sm:w-50">
+                            <ListboxButton className="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 border-1 border-gray-300 focus:outline-none sm:text-sm/6">
+                                <span className="col-start-1 row-start-1 flex items-center gap-3 pr-6">
+                                    <span className="block truncate">{selected.name}</span>
+                                </span>
+                                <ChevronDownIcon
+                                    aria-hidden="true"
+                                    className="col-start-1 row-start-1 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                />
+                            </ListboxButton>
+                            <ListboxOptions
+                                transition
+                                className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
+                            >
+                                {type.map((elem) => (
+                                    <ListboxOption
+                                        key={elem.id}
+                                        value={elem}
+                                        className="group relative cursor-pointer py-2 text-gray-900 select-none data-focus:bg-indigo-600 data-focus:text-white data-focus:outline-hidden"
+                                    >
+                                        <div className="flex items-center">
+                                            <span className="pl-2 block truncate font-normal group-data-selected:font-semibold">
+                                                {elem.name}
+                                            </span>
+                                        </div>
+                                    </ListboxOption>
+                                ))}
+                            </ListboxOptions>
+                        </div>
+                    </Listbox>
+                </div>
+            )}
             <div className="flex flex-wrap justify-start items-start gap-5">
                 {data.map((elem, idx) => (
                     <div key={idx} className="w-full border-1 border-gray-200 px-4 py-3 rounded-lg sm:w-auto sm:min-w-60">
