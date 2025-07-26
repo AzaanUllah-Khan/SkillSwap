@@ -74,6 +74,7 @@ const AddSkill = () => {
             await addDoc(collection(db, "Skills"), {
                 author: username,
                 skill,
+                skill_lower: skill.toLowerCase(),
                 status: active,
                 description: desc,
                 tags: cleanTags,
