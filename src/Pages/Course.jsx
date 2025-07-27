@@ -68,7 +68,7 @@ const Course = () => {
   return (
     <>
       <div className="flex flex-wrap justify-center items-start gap-5 p-6">
-        <div className="max-w-1/2 min-w-70 bg-white border-1 border-gray-200 rounded-lg">
+        <div className="w-full border border-gray-200 px-4 py-3 rounded-lg sm:w-auto sm:min-w-60">
           <div className="px-5 py-3 rounded-t-xl">
             <h1 className="text-xl font-semibold mb-1">{skill}</h1>
             <h1 className="mb-2">{description}</h1>
