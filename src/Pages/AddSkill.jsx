@@ -42,21 +42,45 @@ const AddSkill = () => {
         checkLogin()
     }, [])
 
-    const handleKeyDown = (e) => {
-        if (e.key === " " && input.trim() !== "") {
-            e.preventDefault();
+    // const handleKeyDown = (e) => {
+    //     if (e.key === " " && input.trim() !== "") {
+    //         e.preventDefault();
 
-            const newTag = input.trim().replace(/,$/, "");
+    //         const newTag = input.trim().replace(/,$/, "");
+    //         if (!tags.includes(newTag)) {
+    //             setTags([...tags, newTag]);
+    //         }
+    //         setInput("");
+    //     }
+
+    //     if (e.key === "Backspace" && input === "" && tags.length > 0) {
+    //         setTags(tags.slice(0, -1));
+    //     }
+    // };
+
+    const handleKeyDown = (e) => {
+        const value = e.target.value;
+
+        if ((e.key === " ") && value.trim() !== "") {
+
+            e.preventDefault();
+            const newTag = value.trim().replace(/,$/, "");
+
             if (!tags.includes(newTag)) {
                 setTags([...tags, newTag]);
             }
+
             setInput("");
+            return;
         }
 
-        if (e.key === "Backspace" && input === "" && tags.length > 0) {
+        if (e.key === "Backspace" && value === "" && tags.length > 0) {
+            e.preventDefault();
             setTags(tags.slice(0, -1));
+            return;
         }
     };
+
 
     const subSkill = async (e) => {
         e.preventDefault();
@@ -193,7 +217,7 @@ const AddSkill = () => {
                                             onChange={(e) => setInput(e.target.value)}
                                             onKeyDown={handleKeyDown}
                                             className="flex-grow min-w-[120px] border-none focus:outline-none sm:text-sm"
-                                            placeholder={tags.length === 0 ? "Enter tags seperated by comma" : ""}
+                                            placeholder={tags.length === 0 ? "Enter tags seperated by Space" : ""}
                                         />
                                     </div>
                                 </div>
