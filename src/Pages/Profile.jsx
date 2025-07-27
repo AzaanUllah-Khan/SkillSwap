@@ -234,7 +234,7 @@ const Profile = () => {
                     <form onSubmit={(e) => { openDialog(e) }} className="bg-white p-8 rounded-lg border-1 border-gray-200">
                         <h2 className="text-xl font-semibold mb-1">Personal Information</h2>
                         <p className="text-sm text-gray-400 mb-6">
-                            Use a permanent address where you can receive mail.
+                            View and edit your personal information.
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center gap-6 mb-6">
@@ -319,9 +319,9 @@ const Profile = () => {
                         </button>
                     </form>
 
-                    <div className="flex justify-between items-center bg-white p-8 rounded-xl border-1 border-gray-200">
+                    <div className="flex flex-col gap-6 sm:gap-1 sm:justify-between sm:items-center bg-white p-8 rounded-xl border-1 border-gray-200 sm:flex-row">
                         <div>
-                            <h2 className="text-xl font-semibold mb-1">Delete Account</h2>
+                            <h2 className="text-xl font-semibold sm:mb-1">Delete Account</h2>
                             <p className="text-sm text-gray-400">
                                 Delete your SkillSwap account permenantly
                             </p>
