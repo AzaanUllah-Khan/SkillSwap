@@ -20,6 +20,7 @@ export default function Navbar() {
   const [userName, setUserName] = useState("")
   const [bgColor, setBgColor] = useState("")
   const [textColor, setTextColor] = useState("")
+  const [date,setDate] = useState("")
   const nav = useNavigate()
 
   const checkLogin = () => {
@@ -33,6 +34,7 @@ export default function Navbar() {
           setUserName(docSnap.data().name.split(" "));
           setBgColor(docSnap.data().bgColor)
           setTextColor(docSnap.data().color)
+          setDate(docSnap.data().joined)
         } else {
           console.log("No such document!");
         }
@@ -148,6 +150,13 @@ export default function Navbar() {
                       className="cursor-pointer rounded-md block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                     >
                       Sign out
+                    </p>
+                  </MenuItem>
+                  <MenuItem>
+                    <p
+                      className="rounded-b-md block px-4 py-2 text-sm text-gray-700 bg-gray-100 data-focus:outline-hidden"
+                    >
+                      Joined {date}
                     </p>
                   </MenuItem>
                 </MenuItems>
