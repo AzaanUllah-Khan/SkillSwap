@@ -11,7 +11,7 @@ Built using **React**, **Tailwind CSS**, and **Firebase**, this project allows u
 <img width="1920" height="782" alt="image" src="https://github.com/user-attachments/assets/83f6834d-b856-4449-ab56-e60b4092ab06" />
 
 ### Home Page
-<img width="1920" height="532" alt="image" src="https://github.com/user-attachments/assets/f73b5b29-58be-478f-af09-a6925e69d3f7" />
+<img width="1920" height="448" alt="image" src="https://github.com/user-attachments/assets/c2927b8e-b058-42ef-93f5-e321b1ccb4cc" />
 
 ### Profile Page
 <img width="1920" height="847" alt="image" src="https://github.com/user-attachments/assets/034a1710-b07d-456d-8d2b-c21beadae234" />
