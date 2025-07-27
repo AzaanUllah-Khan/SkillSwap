@@ -59,25 +59,9 @@ const AddSkill = () => {
     // };
 
     const handleKeyDown = (e) => {
-        const value = e.target.value;
-
-        if ((e.key === " ") && value.trim() !== "") {
-
-            e.preventDefault();
-            const newTag = value.trim().replace(/,$/, "");
-
-            if (!tags.includes(newTag)) {
-                setTags([...tags, newTag]);
-            }
-
-            setInput("");
-            return;
-        }
-
-        if (e.key === "Backspace" && value === "" && tags.length > 0) {
+        if (e.key === "Backspace" && input === "" && tags.length > 0) {
             e.preventDefault();
             setTags(tags.slice(0, -1));
-            return;
         }
     };
 
@@ -214,11 +198,26 @@ const AddSkill = () => {
                                         <input
                                             type="text"
                                             value={input}
-                                            onChange={(e) => setInput(e.target.value)}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+
+                                                if ((value.endsWith(" ") || value.endsWith(",")) && value.trim() !== "") {
+                                                    const newTag = value.trim().replace(/,$/, "");
+
+                                                    if (!tags.includes(newTag)) {
+                                                        setTags([...tags, newTag]);
+                                                    }
+
+                                                    setInput("");
+                                                } else {
+                                                    setInput(value);
+                                                }
+                                            }}
                                             onKeyDown={handleKeyDown}
                                             className="flex-grow min-w-[120px] border-none focus:outline-none sm:text-sm"
-                                            placeholder={tags.length === 0 ? "Enter tags seperated by Space" : ""}
+                                            placeholder={tags.length === 0 ? "Enter tags separated by Space" : ""}
                                         />
+
                                     </div>
                                 </div>
                             </div>
