@@ -40,7 +40,6 @@ const Home = () => {
         });
     };
 
-    // 🔁 Sync activeFilters with current UI state
     const syncActiveFilters = (status, skill, author) => {
         const newFilters = [];
         if (status !== "All") newFilters.push({ label: status, type: "status" });
@@ -91,7 +90,6 @@ const Home = () => {
         }
     };
 
-    // 🔁 Trigger on any filter change
     useEffect(() => {
         syncActiveFilters(selected.name, inpVal, inpVal2);
         if (!loading) getFilteredData();
