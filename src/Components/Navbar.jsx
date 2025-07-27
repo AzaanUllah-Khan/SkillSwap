@@ -154,7 +154,7 @@ export default function Navbar() {
                   </MenuItem>
                   <MenuItem>
                     <p
-                      className="rounded-b-md block px-4 py-2 text-sm text-gray-500 font-bold bg-gray-200 data-focus:outline-hidden"
+                      className="rounded-b-md block px-4 py-2 text-sm text-gray-500 font-semibold bg-gray-200 data-focus:outline-hidden"
                     >
                       Joined {date}
                     </p>
