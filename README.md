@@ -14,8 +14,8 @@ Built using **React**, **Tailwind CSS**, and **Firebase**, this project allows u
 <img width="1920" height="448" alt="image" src="https://github.com/user-attachments/assets/c2927b8e-b058-42ef-93f5-e321b1ccb4cc" />
 
 ### Profile Page
-<img width="1920" height="847" alt="image" src="https://github.com/user-attachments/assets/034a1710-b07d-456d-8d2b-c21beadae234" />
-<img width="1920" height="908" alt="image" src="https://github.com/user-attachments/assets/87d4df55-d7c3-4235-8c83-39c6005e4f88" />
+<img width="1920" height="836" alt="image" src="https://github.com/user-attachments/assets/56b630d1-85fd-4850-8b33-b1d1284bf5d8" />
+<img width="1918" height="921" alt="image" src="https://github.com/user-attachments/assets/ae3faafd-655e-4536-b63f-b445b4ab9f63" />
 
 ### Add Skills Page
 <img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/0cc2f8d5-a099-4e0b-a114-d1f91c1d5310" />
