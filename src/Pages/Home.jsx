@@ -102,12 +102,6 @@ const Home = () => {
         document.title = "SkillSwap | Teach what you know. Learn what you want.";
     }, []);
 
-    const handleRemoveFilter = (type) => {
-        if (type === "status") setSelected(type[0]);
-        if (type === "skill") setInpVal("");
-        if (type === "author") setInpVal2("");
-    };
-
     const handleClearAll = () => {
         setSelected(type[0]);
         setInpVal("");
@@ -189,13 +183,9 @@ const Home = () => {
                             {activeFilters.map((filter, index) => (
                                 <button
                                     key={index}
-                                    onClick={() => handleRemoveFilter(filter.type)}
                                     className="bg-transparent text-indigo-600 px-2 gap-2 py-1 rounded flex justify-between items-center outline-1 outline-indigo-600"
                                 >
                                     {filter.label}
-                                    <span className="text-lg leading-none cursor-pointer">
-                                        ×
-                                    </span>
                                 </button>
                             ))}
                             <button
