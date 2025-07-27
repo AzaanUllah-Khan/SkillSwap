@@ -187,22 +187,22 @@ const Home = () => {
 
                     {/* Filter Tags */}
                     {activeFilters.length > 0 && (
-                        <div className="flex flex-wrap items-center gap-2 mt-3">
+                        <div className="flex flex-wrap items-center gap-2 border-b-1 border-gray-200 pb-6">
                             {activeFilters.map((filter, index) => (
                                 <button
                                     key={index}
                                     onClick={() => handleRemoveFilter(filter.type)}
-                                    className="bg-gray-200 text-sm px-3 py-1 rounded-full flex items-center gap-2"
+                                    className="bg-transparent text-indigo-600 px-2 gap-2 py-1 rounded flex justify-between items-center outline-1 outline-indigo-600"
                                 >
                                     {filter.label}
-                                    <span className="text-gray-600 hover:text-red-600 text-lg leading-none font-bold">
+                                    <span className="text-lg leading-none cursor-pointer">
                                         ×
                                     </span>
                                 </button>
                             ))}
                             <button
                                 onClick={handleClearAll}
-                                className="ml-auto text-sm bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-full"
+                                className="ml-auto bg-indigo-600 text-white px-2 gap-1 py-1 rounded flex justify-between items-center outline-1 outline-indigo-600 cursor-pointer hover:bg-indigo-500"
                             >
                                 Clear All Filters
                             </button>
