@@ -122,7 +122,7 @@ const SeeProfile = () => {
             <ToastContainer />
             <div className="flex flex-wrap justify-center items-start gap-5 p-6">
                 {data.map(function (elem, idx) {
-                    return <div key={idx} className="max-w-1/2 min-w-70 bg-white border-1 border-gray-200 rounded-lg">
+                    return <div key={idx} className="w-full sm:w-auto sm:min-w-70 bg-white border-1 border-gray-200 rounded-lg">
                         <div className="px-5 py-3 rounded-t-xl">
                             <h1 className="text-xl font-semibold mb-1">{elem.skill}</h1>
                             <h1 className="mb-2">{elem.description}</h1>
