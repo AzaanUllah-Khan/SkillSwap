@@ -43,7 +43,7 @@ const AddSkill = () => {
     }, [])
 
     const handleKeyDown = (e) => {
-        if (e.key === "," && input.trim() !== "") {
+        if (e.key === " " && input.trim() !== "") {
             e.preventDefault();
 
             const newTag = input.trim().replace(/,$/, "");
