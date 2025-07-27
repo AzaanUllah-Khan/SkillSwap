@@ -132,7 +132,7 @@ export default function Navbar() {
                   <MenuItem>
                     <Link
                       to="/profile"
-                      className="rounded-md block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                      className="rounded-t-md block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                     >
                       Your Profile
                     </Link>
@@ -140,21 +140,21 @@ export default function Navbar() {
                   <MenuItem>
                     <Link
                       to={`/seeprofile/${Uuid}`}
-                      className="rounded-md block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                      className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                     >
                       My Skills
                     </Link>
                   </MenuItem>
                   <MenuItem>
                     <p onClick={() => setOpen(true)}
-                      className="cursor-pointer rounded-md block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                      className="cursor-pointer block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                     >
                       Sign out
                     </p>
                   </MenuItem>
                   <MenuItem>
                     <p
-                      className="rounded-b-md block px-4 py-2 text-sm text-gray-700 bg-gray-100 data-focus:outline-hidden"
+                      className="rounded-b-md block px-4 py-2 text-sm text-gray-500 font-bold bg-gray-200 data-focus:outline-hidden"
                     >
                       Joined {date}
                     </p>
